@@ -16,7 +16,7 @@ matrix:
       install:
         - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
         - sudo apt-get update -q
-        - sudo apt-get install -qq gcc-6
+        - sudo apt-get install -qq --no-install-suggests --no-install-recommends gcc-6
 
     - name: (addons) ARM & AARCH64
       dist: trusty
@@ -33,7 +33,7 @@ matrix:
     - name: (apt) ARM & AARCH64
       dist: trusty
       install:
-        - sudo apt-get install -qq
+        - sudo apt-get install -qq --no-install-suggests --no-install-recommends
             qemu-system-arm qemu-user-static
             gcc-arm-linux-gnueabi libc6-dev-armel-cross
             gcc-aarch64-linux-gnu libc6-dev-arm64-cross
