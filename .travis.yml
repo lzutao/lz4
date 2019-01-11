@@ -14,7 +14,7 @@ matrix:
     - name: (apt) gcc-6 | custom APT repo
       dist: trusty
       install:
-        - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
+        - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
         - sudo apt-get update -q
         - sudo apt-get install -qq --no-install-suggests --no-install-recommends gcc-6
 
