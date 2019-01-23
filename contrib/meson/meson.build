@@ -17,7 +17,6 @@ project('lz4', ['c'],
 cc = meson.get_compiler('c')
 pkgconfig = import('pkgconfig')
 python3 = import('python').find_installation()
-c_std = get_option('c_std')
 
 host_machine_os = host_machine.system()
 os_windows = 'windows'
@@ -25,6 +24,12 @@ os_linux = 'linux'
 os_darwin = 'darwin'
 os_freebsd = 'freebsd'
 os_sun = 'sunos'
+
+if host_machine_os != os_windows
+  c_std = get_option('c_std')
+else
+  c_std = 'c89'
+endif
 
 cc_id = cc.get_id()
 compiler_gcc = 'gcc'
