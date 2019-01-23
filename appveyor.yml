@@ -64,7 +64,7 @@ build_script:
         ninja -C build install
       )
       else (
-        MSBuild build
+        MSBuild build/lz4.sln /m
       )
     )
   - if [%PLATFORM%]==[mingw32] SET PATH=%PATH_MINGW32%;%PATH_ORIGINAL%
