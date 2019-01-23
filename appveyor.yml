@@ -48,15 +48,14 @@ install:
   - cmd: if %arch%==x86 (set PYTHON_ROOT=C:\python37) else (set PYTHON_ROOT=C:\python37-x64)
    # Set up the build environment
   - cmd: if %compiler%==msvc2015 ( call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" %arch% )
-  - ps: |
-      If($env:BUILD_SYSTEM -eq "Meson") {
-        $env:Path="C:\ninja-build;$env:PYTHON_ROOT;$env:PYTHON_ROOT\Scripts;$env:PATH"
-        pip install --user --upgrade pip
-        pip install meson ninja
+  - cmd: if %BUILD_SYSTEM%=Meson {
+        set PATH="%PYTHON_ROOT%;%PYTHON_ROOT%\Scripts;%PATH%"
+          && pip install --user --upgrade pip
+          && pip install --user meson ninja
       }
 
 build_script:
-  - if [%BUILD_SYSTEM%]==[Meson] (
+  - if %BUILD_SYSTEM%==Meson (
       meson setup --backend vs2015 --buildtype=debug -Dauto_features=enabled -Ddefault_library=both -Dbuild_programs=true -Dbuild_contrib=true -Dbuild_tests=true -Dbuild_examples=true contrib/meson build
         && ninja -C build
         && ninja -C build install
