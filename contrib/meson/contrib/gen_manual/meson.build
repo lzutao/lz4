@@ -14,9 +14,13 @@ cxx = meson.get_compiler('cpp')
 
 gen_manual_includes = include_directories(join_paths(lz4_root_dir, 'contrib/gen_manual'))
 
-gen_manual_cppflags = cxx.get_supported_arguments(['-Wextra', '-Wcast-qual',
-  '-Wcast-align', '-Wshadow', '-Wstrict-aliasing=1', '-Wswitch-enum',
-  '-Wno-comment'])
+gen_manual_cppflags = []
+
+if [compiler_gcc, compiler_clang].contains(cc_id)
+  gen_manual_cppflags += cxx.get_supported_arguments(['-Wextra', '-Wcast-qual',
+    '-Wcast-align', '-Wshadow', '-Wstrict-aliasing=1', '-Wswitch-enum',
+    '-Wno-comment'])
+endif
 
 gen_manual = executable('gen_manual',
   join_paths(lz4_root_dir, 'contrib/gen_manual/gen_manual.cpp'),
