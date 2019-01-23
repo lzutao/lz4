@@ -50,7 +50,7 @@ install:
   # Set up the build environment
   - if %BUILD_SYSTEM%==Meson (
       call "%VS140COMNTOOLS%\..\..\VC\vcvarsall.bat" %arch%
-        && pip install --user --upgrade pip
+        && pip install --disable-pip-version-check --user --upgrade pip setuptools
         && pip install --user meson ninja
     )
 
