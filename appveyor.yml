@@ -25,6 +25,7 @@ environment:
     #   PLATFORM: "clang"
     - BUILD_SYSTEM: Meson
       arch: x64
+      compiler: msvc2015
 
 install:
   - ECHO Installing %COMPILER% %PLATFORM% %CONFIGURATION%
@@ -40,9 +41,12 @@ install:
     )
   # Set paths to dependencies (based on architecture)
   - cmd: if %arch%==x86 (set PYTHON_ROOT=C:\python37) else (set PYTHON_ROOT=C:\python37-x64)
+   # Set up the build environment
+  - cmd: if %compiler%==msvc2015 ( call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" %arch% )
   - ps: |
       If($env:BUILD_SYSTEM -eq "Meson") {
         $env:Path="C:\ninja-build;$env:PYTHON_ROOT;$env:PYTHON_ROOT\Scripts;$env:PATH"
+        pip install --upgrade pip
         pip install meson ninja
       }
 
