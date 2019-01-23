@@ -51,7 +51,7 @@ install:
   - if %BUILD_SYSTEM%==Meson (
       call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" %arch%
         && pip install --disable-pip-version-check --user --upgrade pip setuptools
-        && pip install --user meson ninja
+        && pip install meson ninja
     )
 
 build_script:
