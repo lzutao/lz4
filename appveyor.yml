@@ -24,7 +24,7 @@ environment:
     # - COMPILER: "gcc"
     #   PLATFORM: "clang"
     - BUILD_SYSTEM: Meson
-      PYTHON: 'C:\\Python36-x64'
+      arch: x64
 
 install:
   - ECHO Installing %COMPILER% %PLATFORM% %CONFIGURATION%
@@ -38,9 +38,11 @@ install:
     ) else (
       IF [%PLATFORM%]==[x64] (SET ADDITIONALPARAM=/p:LibraryPath="C:\Program Files\Microsoft SDKs\Windows\v7.1\lib\x64;c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\lib\amd64;C:\Program Files (x86)\Microsoft Visual Studio 10.0\;C:\Program Files (x86)\Microsoft Visual Studio 10.0\lib\amd64;")
     )
+  # Set paths to dependencies (based on architecture)
+  - cmd: if %arch%==x86 (set PYTHON_ROOT=C:\python37) else (set PYTHON_ROOT=C:\python37-x64)
   - ps: |
       If($env:BUILD_SYSTEM -eq "Meson") {
-        $env:Path=";$env:PYTHON;$env:PYTHON\\Scripts;$env:Path"
+        $env:Path="C:\ninja-build;$env:PYTHON_ROOT;$env:PYTHON_ROOT\Scripts;$env:PATH"
         pip install meson ninja
       }
 
