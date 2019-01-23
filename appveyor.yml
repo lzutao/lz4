@@ -46,7 +46,7 @@ install:
     )
   # Set paths to dependencies (based on architecture)
   - if %arch%==x86 (set PYTHON_ROOT=C:\python37) else (set PYTHON_ROOT=C:\python37-x64)
-  - set "PATH=%PYTHON_ROOT%;%PYTHON_ROOT%\Scripts;%PATH%"
+  - set "PATH=C:\mingw\bin;C:\mingw\msys\1.0\bin;%PYTHON_ROOT%;%PYTHON_ROOT%\Scripts;%PATH%"
   # Set up the build environment
   - if %BUILD_SYSTEM%==Meson (
       call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" %arch%
