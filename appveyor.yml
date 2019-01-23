@@ -47,7 +47,7 @@ install:
     )
   # Set paths to dependencies (based on architecture)
   - if %arch%==x86 (set PYTHON_ROOT=C:\python37) else (set PYTHON_ROOT=C:\python37-x64)
-  - set "PATH=C:\mingw\bin;C:\mingw\msys\1.0\bin;%PYTHON_ROOT%;%PYTHON_ROOT%\Scripts;%PATH%"
+  - set "PATH=%PYTHON_ROOT%;%PYTHON_ROOT%\Scripts;%PATH%"
    # Set paths and config for each build type.
   - if %compiler%==msvc2015 ( call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" %arch% )
   - if %compiler%==msvc2017 ( call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\VsDevCmd.bat" -arch=%arch% )
@@ -64,7 +64,7 @@ build_script:
         ninja -C build install
       )
       else (
-        MSBuild
+        MSBuild build
       )
     )
   - if [%PLATFORM%]==[mingw32] SET PATH=%PATH_MINGW32%;%PATH_ORIGINAL%
