@@ -45,7 +45,7 @@ install:
       }
 
 build_script:
-  - if %BUILD_SYSTEM% == Meson (
+  - if [%BUILD_SYSTEM%]==[Meson] (
       meson setup --backend vs2015 --buildtype=debug -Dauto_features=enabled -Ddefault_library=both -Dbuild_programs=true -Dbuild_contrib=true -Dbuild_tests=true -Dbuild_examples=true contrib/meson build
         && ninja -C build
         && ninja -C build install
