@@ -47,8 +47,8 @@ install:
   # Set paths to dependencies (based on architecture)
   - if %arch%==x86 (set PYTHON_ROOT=C:\python37) else (set PYTHON_ROOT=C:\python37-x64)
   - set PATH="%PYTHON_ROOT%;%PYTHON_ROOT%\Scripts;%PATH%"
+  # Set up the build environment
   - if %BUILD_SYSTEM%==Meson (
-      # Set up the build environment
       call "%VS140COMNTOOLS%\..\..\VC\vcvarsall.bat" %arch%
         && pip install --user --upgrade pip
         && pip install --user meson ninja
