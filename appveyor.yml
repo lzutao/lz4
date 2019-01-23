@@ -59,8 +59,13 @@ install:
 build_script:
   - if %BUILD_SYSTEM%==Meson (
       meson setup --buildtype=debug --backend=%backend% -Dauto_features=enabled -Ddefault_library=both -Dbuild_programs=true -Dbuild_contrib=true -Dbuild_tests=true -Dbuild_examples=true contrib/meson build &&
-      ninja -C build &&
-      ninja -C build install
+      if %backend%==ninja (
+        ninja -C build &&
+        ninja -C build install
+      )
+      else (
+        MSBuild
+      )
     )
   - if [%PLATFORM%]==[mingw32] SET PATH=%PATH_MINGW32%;%PATH_ORIGINAL%
   - if [%PLATFORM%]==[mingw64] SET PATH=%PATH_MINGW64%;%PATH_ORIGINAL%
