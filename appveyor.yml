@@ -40,7 +40,7 @@ install:
     )
   - ps: |
       If($env:BUILD_SYSTEM -eq "Meson") {
-        $env:Path=";$env:PYTHON;$env:PYTHON\Scripts;$env:Path"
+        $env:Path=";$env:PYTHON;$env:PYTHON\\Scripts;$env:Path"
         pip install meson ninja
       }
 
