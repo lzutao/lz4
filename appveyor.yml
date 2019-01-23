@@ -45,8 +45,8 @@ install:
       IF [%PLATFORM%]==[x64] (SET ADDITIONALPARAM=/p:LibraryPath="C:\Program Files\Microsoft SDKs\Windows\v7.1\lib\x64;c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\lib\amd64;C:\Program Files (x86)\Microsoft Visual Studio 10.0\;C:\Program Files (x86)\Microsoft Visual Studio 10.0\lib\amd64;")
     )
   # Set paths to dependencies (based on architecture)
-  - if %arch%==x86 (set PYTHON_ROOT=C:\python37) else (set PYTHON_ROOT=C:\python37-x64)
-  - set PATH="%PYTHON_ROOT%;%PYTHON_ROOT%\Scripts;%PATH%"
+  - cmd: if %arch%==x86 (set PYTHON_ROOT=C:\python37) else (set PYTHON_ROOT=C:\python37-x64)
+  - cmd: set PATH="%PYTHON_ROOT%;%PYTHON_ROOT%\Scripts;%PATH%"
   # Set up the build environment
   - if %BUILD_SYSTEM%==Meson (
       call "%VS140COMNTOOLS%\..\..\VC\vcvarsall.bat" %arch%
