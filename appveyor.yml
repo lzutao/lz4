@@ -46,10 +46,10 @@ install:
     )
   # Set paths to dependencies (based on architecture)
   - if %arch%==x86 (set PYTHON_ROOT=C:\python37) else (set PYTHON_ROOT=C:\python37-x64)
-   # Set up the build environment
-  - if %compiler%==msvc2015 ( call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" %arch% )
+  - set PATH="%PYTHON_ROOT%;%PYTHON_ROOT%\Scripts;%PATH%"
   - if %BUILD_SYSTEM%==Meson (
-      set PATH="%PYTHON_ROOT%;%PYTHON_ROOT%\Scripts;%PATH%"
+      # Set up the build environment
+      call "%VS140COMNTOOLS%\..\..\VC\vcvarsall.bat" %arch%
         && pip install --user --upgrade pip
         && pip install --user meson ninja
     )
