@@ -27,6 +27,11 @@ environment:
       arch: x64
       compiler: msvc2015
 
+matrix:
+  fast_finish: true
+  allow_failures:
+    - BUILD_SYSTEM: Meson
+
 install:
   - ECHO Installing %COMPILER% %PLATFORM% %CONFIGURATION%
   - MKDIR bin
@@ -46,7 +51,7 @@ install:
   - ps: |
       If($env:BUILD_SYSTEM -eq "Meson") {
         $env:Path="C:\ninja-build;$env:PYTHON_ROOT;$env:PYTHON_ROOT\Scripts;$env:PATH"
-        pip install --upgrade pip
+        pip install --user --upgrade pip
         pip install meson ninja
       }
 
