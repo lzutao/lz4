@@ -39,18 +39,17 @@ install:
       IF [%PLATFORM%]==[x64] (SET ADDITIONALPARAM=/p:LibraryPath="C:\Program Files\Microsoft SDKs\Windows\v7.1\lib\x64;c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\lib\amd64;C:\Program Files (x86)\Microsoft Visual Studio 10.0\;C:\Program Files (x86)\Microsoft Visual Studio 10.0\lib\amd64;")
     )
   - ps: |
-      If($BUILD_SYSTEM -eq "Meson") {
+      If($env:BUILD_SYSTEM -eq "Meson") {
         $env:Path += ";$env:PYTHON;$env:PYTHON\Scripts"
         pip install meson ninja
       }
 
 build_script:
-  - cmd: |
-      if %BUILD_SYSTEM% == Meson (
-        meson setup --backend vs2015 --buildtype=debug -Dauto_features=enabled -Ddefault_library=both -Dbuild_programs=true -Dbuild_contrib=true -Dbuild_tests=true -Dbuild_examples=true contrib/meson build
-        ninja -C build
-        ninja -C build install
-      )
+  - if %BUILD_SYSTEM% == Meson (
+      meson setup --backend vs2015 --buildtype=debug -Dauto_features=enabled -Ddefault_library=both -Dbuild_programs=true -Dbuild_contrib=true -Dbuild_tests=true -Dbuild_examples=true contrib/meson build
+        && ninja -C build
+        && ninja -C build install
+    )
   - if [%PLATFORM%]==[mingw32] SET PATH=%PATH_MINGW32%;%PATH_ORIGINAL%
   - if [%PLATFORM%]==[mingw64] SET PATH=%PATH_MINGW64%;%PATH_ORIGINAL%
   - if [%PLATFORM%]==[clang] SET PATH=%PATH_MINGW64%;%PATH_ORIGINAL%
