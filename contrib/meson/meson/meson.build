@@ -9,7 +9,6 @@
 
 cc = meson.get_compiler('c')
 pkgconfig = import('pkgconfig')
-c_std = get_option('c_std')
 default_library = get_option('default_library')
 
 host_machine_os = host_machine.system()
@@ -82,6 +81,7 @@ bin_examples = get_option('bin_examples')
 add_project_arguments(['-DXXH_NAMESPACE=LZ4_'], language: 'c')
 
 if [compiler_gcc, compiler_clang].contains(cc_id)
+  c_std = get_option('c_std')
   common_warning_flags = []
   # Should use Meson's own --werror build option
   #common_warning_flags += ['-Werror']
